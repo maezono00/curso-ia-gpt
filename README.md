@@ -1,343 +1,385 @@
-# 🤖 Explicação do Código — Agente IA com AGNO
+# 🤖 Explicação do Código — Agente de IA com AGNO
 
-Este projeto cria um agente de Inteligência Artificial utilizando o framework **AGNO**, com suporte a:
-
-- 🔎 Pesquisas na internet
-- 🗄️ Persistência em banco de dados SQLite
-- 🧠 Memória de conversas
-- 💬 Integração com modelo OpenAI
-- 🌐 Ferramentas Tavily e DuckDuckGo
-
----
-
-# 📦 Importações
-
-## 🔎 Ferramentas de Pesquisa
-
-```python
-from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.tools.tavily import TavilyTools
-```
-
-Essas bibliotecas adicionam ferramentas de busca ao agente.
-
-### DuckDuckGoTools
-Permite que o agente faça pesquisas diretamente no mecanismo de busca DuckDuckGo.
-
-Exemplo:
-- Pesquisar notícias
-- Buscar informações técnicas
-- Consultar conteúdos online
-
----
-
-### TavilyTools
-Ferramenta avançada de pesquisa focada em IA e contexto.
-
-Ela melhora:
-- precisão das respostas
-- contexto da busca
-- informações atualizadas
-
----
-
-# 🗄️ Banco de Dados SQLite
-
-```python
-from agno.db.sqlite import SqliteDb
-```
-
-Responsável por armazenar:
-- histórico das conversas
-- memória do agente
-- contexto das sessões
-
-O banco utilizado é SQLite, um banco leve que salva os dados em arquivo local.
-
----
-
-# 🔐 Variáveis de Ambiente
-
-```python
-from dotenv import load_dotenv
-```
-
-Carrega variáveis do arquivo `.env`.
-
-Exemplo:
-```env
-OPENAI_API_KEY=sua_chave
-```
-
-Isso evita deixar chaves sensíveis diretamente no código.
-
----
-
-# 🤖 Classe Principal do Agente
+## 📦 Importações
 
 ```python
 from agno.agent import Agent
 ```
 
-Classe principal responsável por:
-- criar o agente
-- gerenciar memória
-- usar ferramentas
-- enviar prompts ao modelo IA
+Importa a classe principal responsável por criar e controlar o agente de IA.
+
+Ela gerencia:
+
+- Modelo de IA
+- Ferramentas
+- Memória
+- Histórico
+- Contexto
+- Execução das respostas
 
 ---
-
-# 🧠 Modelo OpenAI
 
 ```python
 from agno.models.openai import OpenAIChat
 ```
 
-Define qual modelo da OpenAI será utilizado.
+Importa o modelo da OpenAI utilizado pelo agente.
 
-No código:
+Nesse caso, será usado o modelo:
+
 ```python
-OpenAIChat(id = "gpt-4o-mini")
+gpt-4o-mini
 ```
 
-O agente utilizará o modelo:
-- GPT-4o Mini
+Responsável por gerar as respostas inteligentes.
 
 ---
 
-# ⚙️ Carregando Variáveis de Ambiente
+```python
+from agno.tools.duckduckgo import DuckDuckGoTools
+```
+
+Adiciona a ferramenta de busca do DuckDuckGo ao agente.
+
+Permite:
+
+- Pesquisar informações na internet
+- Buscar dados atualizados
+- Complementar respostas da IA
+
+---
+
+```python
+from agno.tools.tavily import TavilyTools
+```
+
+Importa a integração com o Tavily Search.
+
+O Tavily é otimizado para IA e fornece:
+
+- Pesquisas contextuais
+- Resultados mais relevantes
+- Melhor performance para agentes inteligentes
+
+---
+
+```python
+from agno.db.sqlite import SqliteDb
+```
+
+Importa o banco de dados SQLite utilizado para armazenar:
+
+- Histórico
+- Sessões
+- Conversas
+- Memória do agente
+
+---
+
+```python
+from dotenv import load_dotenv
+```
+
+Permite carregar variáveis do arquivo `.env`.
+
+Normalmente utilizado para:
+
+- API Keys
+- Tokens
+- Configurações sensíveis
+
+---
+
+# 🔐 Carregando variáveis de ambiente
 
 ```python
 load_dotenv()
 ```
 
-Carrega automaticamente as variáveis definidas no arquivo `.env`.
+Lê automaticamente o arquivo `.env`.
+
+Exemplo:
+
+```env
+OPENAI_API_KEY=sua-chave-aqui
+```
 
 ---
 
-# 🗄️ Criando Banco de Dados
+# 🗄️ Criando o banco de dados
 
 ```python
 bancoDados = SqliteDb(db_file="temp/registros.db")
 ```
 
-Cria um banco SQLite no caminho:
+Cria um banco SQLite local.
+
+Arquivo criado:
 
 ```bash
 temp/registros.db
 ```
 
 Esse banco armazenará:
-- histórico
-- contexto
-- sessões do agente
+
+- Histórico das conversas
+- Sessões do usuário
+- Memória contextual
 
 ---
 
-# 🤖 Criando o Agente
+# 🧠 Criando o Agente de IA
 
 ```python
 agente = Agent(
 ```
 
-Inicializa o agente IA.
+Inicializa o agente principal.
 
 ---
 
-# 🧠 Modelo Utilizado
+## 🔹 Modelo utilizado
 
 ```python
-model = OpenAIChat(id = "gpt-4o-mini")
+model=OpenAIChat(id="gpt-4o-mini"),
 ```
 
-Define o modelo de linguagem utilizado.
+Define qual modelo da OpenAI será utilizado.
+
+Nesse caso:
+
+- GPT-4o Mini
+- Modelo rápido
+- Mais econômico
+- Ótimo para agentes conversacionais
 
 ---
 
-# 📝 Personalidade do Agente
+## 🔹 Descrição do agente
 
 ```python
-description = "Você é um técnico de informática..."
+description="Você é um especialista em pesquisas acadêmicas..."
 ```
+
+Funciona como uma personalidade/instrução fixa do agente.
 
 Define:
-- comportamento
-- personalidade
-- estilo de escrita
-- especialidade do agente
 
-Nesse caso:
-- técnico de informática
-- respostas diretas
-- uso de emoticons
-- especialista em hardware
+- Comportamento
+- Especialidade
+- Tom das respostas
+- Objetivo principal
 
 ---
 
-# 🧠 Histórico na Conversa
+## 🔹 Histórico no contexto
 
 ```python
-add_history_to_context = True
+add_history_to_context=True,
 ```
 
-Permite que o agente utilize mensagens anteriores para responder melhor.
+Faz com que o agente lembre mensagens anteriores.
 
-Isso cria:
-- memória contextual
-- continuidade na conversa
+Isso permite:
+
+- Conversas contínuas
+- Contexto persistente
+- Respostas mais inteligentes
 
 ---
 
-# 🗄️ Banco Integrado
+## 🔹 Banco de dados
 
 ```python
-db = bancoDados
+db=bancoDados,
 ```
 
-Conecta o agente ao banco SQLite.
+Conecta o agente ao banco SQLite criado anteriormente.
+
+Assim ele consegue salvar memória persistente.
 
 ---
 
-# 🆔 Session ID
+## 🔹 Sessão do usuário
 
 ```python
-session_id="4b471813-b9af-4bac-a259-f586735d2f9f"
+session_id="2d74ac75-2b92-465c-a5ae-d56ecd5bb793",
 ```
 
-Identificador único da sessão.
+Identifica uma sessão específica de conversa.
 
 Serve para:
-- recuperar histórico
-- manter memória persistente
-- continuar conversas antigas
+
+- Separar usuários
+- Manter contexto individual
+- Recuperar histórico corretamente
 
 ---
 
-# 🔄 Quantidade de Histórico
+## 🔹 Quantidade de histórico
 
 ```python
-num_history_runs=7
+num_history_runs=3,
 ```
 
-Define quantas mensagens anteriores serão utilizadas no contexto.
+Define quantas interações anteriores serão enviadas para o modelo.
 
 Nesse caso:
-- últimas 7 interações
+
+- Últimas 3 conversas
+
+Isso ajuda a economizar tokens.
 
 ---
 
-# 🔧 Ferramentas do Agente
+## 🔹 Ferramentas do agente
 
 ```python
-tools = [DuckDuckGoTools(), TavilyTools()]
+tools=[DuckDuckGoTools(), TavilyTools],
 ```
 
 Adiciona ferramentas externas ao agente.
 
 Ferramentas disponíveis:
-- DuckDuckGo Search
-- Tavily Search
 
-O agente poderá pesquisar automaticamente na internet quando necessário.
+| Ferramenta | Função |
+|---|---|
+| DuckDuckGo | Pesquisa web |
+| Tavily | Busca inteligente para IA |
 
 ---
 
-# 📄 Respostas em Markdown
+## 🔹 Respostas em Markdown
 
 ```python
-markdown = True
+markdown=True
 ```
 
-Faz o agente responder utilizando Markdown.
+Faz com que o agente responda formatando em Markdown.
 
-Melhora:
-- formatação
-- leitura
-- organização das respostas
+Exemplo:
+
+- Títulos
+- Listas
+- Código
+- Tabelas
 
 ---
 
-# 🔁 Loop Infinito de Conversa
+# 🔁 Loop principal
 
 ```python
 while True:
 ```
 
-Mantém o chat funcionando continuamente até o usuário sair.
+Mantém o programa rodando continuamente até o usuário decidir sair.
 
 ---
 
-# ⌨️ Entrada do Usuário
+# ⌨️ Entrada do usuário
 
 ```python
-pergunta = input("Insira texto: ")
+pergunta = input("Digite a sua pergunta: ")
 ```
 
-Recebe perguntas digitadas pelo usuário.
+Captura perguntas digitadas no terminal.
 
 ---
 
-# ❌ Encerrando Programa
+# ❌ Condição de saída
 
 ```python
-if (pergunta.lower() in ['sair', 'exit', 'não']):
-    break
+if pergunta.lower() in ['exit', 'sair', 'quit', 'cancelar', 'finalizar']:
 ```
 
-Fecha o programa caso o usuário digite:
-- sair
+Verifica se o usuário deseja encerrar o agente.
+
+Comandos aceitos:
+
 - exit
-- não
+- sair
+- quit
+- cancelar
+- finalizar
 
 ---
 
-# 💬 Resposta do Agente
+# 👋 Encerrando o programa
+
+```python
+print("Encerando agente...\nAté mais tarde 🤖")
+```
+
+Exibe mensagem de encerramento.
+
+---
+
+# 🛑 Finaliza o loop
+
+```python
+break
+```
+
+Interrompe o `while True`.
+
+---
+
+# 🚀 Executando o agente
 
 ```python
 agente.print_response(pergunta)
 ```
 
-Envia a pergunta para o agente e imprime a resposta formatada.
+Envia a pergunta para o agente.
 
-O agente poderá:
-- responder usando IA
-- consultar internet
-- usar memória
-- acessar histórico
+O agente então:
+
+1. Processa o contexto
+2. Consulta ferramentas se necessário
+3. Usa o modelo da OpenAI
+4. Gera a resposta
+5. Exibe no terminal
 
 ---
 
-# 🚀 Fluxo Completo do Sistema
+# 🧩 Fluxo Completo do Sistema
 
-```mermaid
-graph TD
-
-A[Usuário] --> B[Input]
-B --> C[Agente AGNO]
-C --> D[OpenAI GPT-4o-mini]
-C --> E[DuckDuckGo]
-C --> F[Tavily]
-C --> G[SQLite]
-
-D --> H[Resposta]
-E --> H
-F --> H
-G --> H
-
-H --> A
+```text
+Usuário
+   ↓
+Input Terminal
+   ↓
+AGNO Agent
+   ↓
+GPT-4o-mini
+   ↓
+Ferramentas
+ ├── DuckDuckGo
+ └── Tavily
+   ↓
+Banco SQLite
+   ↓
+Resposta Final
 ```
 
 ---
 
 # ✅ Resumo
 
-Este código cria um agente de IA capaz de:
+Esse código cria um agente de IA completo com:
 
-- 🧠 Manter memória de conversa
-- 🌐 Pesquisar na internet
-- 🗄️ Salvar histórico
-- 🤖 Utilizar OpenAI GPT
-- 💬 Conversar continuamente
-- 📄 Responder em Markdown
+- Memória persistente
+- Histórico contextual
+- Busca na internet
+- Modelo GPT-4o-mini
+- Banco SQLite
+- Respostas formatadas
+- Conversa contínua
 
-```
+Ideal para:
+
+- Assistentes inteligentes
+- Pesquisa acadêmica
+- Chatbots
+- Agentes autônomos
+- Sistemas RAG simples
