@@ -1,7 +1,6 @@
 [theme]
 
-backgroundColor = "#f9dbbd"
-textColor = "#450920"
-secondaryBackgroundColor = "#ffa5ab"
+backgroundColor = "#FFFFFF"
+textColor = "#D72130"
 primaryColor = "#FFFFFF"
-font = "Cascadia Code"
+font = "Lucida Sans Unicode"
