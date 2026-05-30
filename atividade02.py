@@ -1,4 +1,3 @@
-#
 import streamlit as st
 
 st.title("Bem vindo ao sistema de RH 2000!!! 👩‍💼")
